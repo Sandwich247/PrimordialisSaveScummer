@@ -1,4 +1,4 @@
-﻿### Created by Sandwich247 for the purposes of making save backups for Primordialis ###
+### Created by Sandwich247 for the purposes of making save backups for Primordialis ###
 
 $SaveLocation = "$env:APPDATA\Primordialis\save" # Gets the save file location
 
@@ -25,7 +25,7 @@ Do{
 while ($Confirmation -ne "y") # If confirmation isn't y, run through the whole thing again
 
 $SaveFilePresent = [System.IO.File]::Exists("$env:APPDATA\Primordialis\save\world.run") # Checks if you have a save file present
-$GameRunning = Get-Process primordialis -ErrorAction SilentlyContinue
+
 
 
 $SavingLoop = {
@@ -35,6 +35,7 @@ $SavingLoop = {
       Write-Host ("Save file present, making a backup") # It has found the save file, lets the user know it's found and will continue to make a copy
       Copy-Item -Path "$($SaveLocation)" -Destination ("$($SaveLocation) - " + $($SaveName) + " - " + (Get-Date -Format ("yyyyMMddHHmmss"))) -Recurse # Performs the copy and saves it with the current timestamp
       Write-Host ("Saved Successfully as save - " + $($SaveName) + " - " + (Get-Date -Format ("yyyyMMddHHmmss")))
+      $GameRunning = Get-Process primordialis -ErrorAction SilentlyContinue
 
         If ($GameRunning) # If the game is running, it will continue to work every 3 minutes
         {
